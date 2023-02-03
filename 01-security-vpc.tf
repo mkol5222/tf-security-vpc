@@ -228,3 +228,63 @@ resource "aws_route_table_association" "tgw_subnet_rtb_assoc" {
   subnet_id      = data.aws_subnet.tgw-subnets[each.key].id
   route_table_id = aws_route_table.rt-net-chkp-tgw[each.key].id
 }
+
+
+// GWLB gateways subnets
+
+resource "aws_subnet" "chkp_gw_subnet1" {
+  vpc_id = module.launch_vpc.vpc_id
+  availability_zone = element(var.availability_zones, 0)
+  cidr_block = var.gwlb_gw_subnet_1_cidr
+  map_public_ip_on_launch = true
+  tags = {
+    Name = "net-chkp-gw-1"
+    Network = "Public"
+  }
+}
+
+resource "aws_subnet" "chkp_gw_subnet2" {
+  vpc_id = module.launch_vpc.vpc_id
+  availability_zone = element(var.availability_zones, 1)
+  cidr_block = var.gwlb_gw_subnet_2_cidr
+  map_public_ip_on_launch = true
+  tags = {
+    Name = "net-chkp-gw-2"
+    Network = "Public"
+  }
+}
+
+resource "aws_subnet" "chkp_gw_subnet3" {
+  count = var.number_of_AZs >= 3 ? 1 :0
+  vpc_id = module.launch_vpc.vpc_id
+  availability_zone = element(var.availability_zones, 2)
+  cidr_block = var.gwlb_gw_subnet_3_cidr
+  map_public_ip_on_launch = true
+  tags = {
+    Name = "net-chkp-gw-3"
+    Network = "Public"
+  }
+}
+
+resource "aws_subnet" "chkp_gw_subnet4" {
+  count = var.number_of_AZs >= 4 ? 1 :0
+  vpc_id = module.launch_vpc.vpc_id
+  availability_zone = element(var.availability_zones, 3)
+  cidr_block = var.gwlb_gw_subnet_4_cidr
+  map_public_ip_on_launch = true
+  tags = {
+    Name = "net-chkp-gw-4"
+    Network = "Public"
+  }
+}
+
+output "chkp_gw_subnet_ids" {
+  value = [aws_subnet.chkp_gw_subnet1.id, aws_subnet.chkp_gw_subnet2.id, aws_subnet.chkp_gw_subnet3[0].id]
+}
+locals {
+  chkp_gw_subnet_ids =  [aws_subnet.chkp_gw_subnet1.id, aws_subnet.chkp_gw_subnet2.id, aws_subnet.chkp_gw_subnet3[0].id]
+}
+
+output "chkp_vpc_id" {
+  value = module.launch_vpc.vpc_id
+}

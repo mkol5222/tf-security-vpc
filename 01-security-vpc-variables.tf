@@ -57,3 +57,25 @@ variable "nat_gw_subnet_4_cidr" {
   description = "CIDR block for NAT subnet 4 located in the 4st Availability Zone"
   default = "10.0.43.0/24"
 }
+
+// GWLB 
+variable "gwlb_gw_subnet_1_cidr" {
+  type = string
+  description = "CIDR block for GWLB subnet 1 located in the 1st Availability Zone"
+  default = "10.0.17.0/24"
+}
+variable "gwlb_gw_subnet_2_cidr" {
+  type = string
+  description = "CIDR block for GWLB subnet 2 located in the 2st Availability Zone"
+  default = "10.0.27.0/24"
+}
+variable "gwlb_gw_subnet_3_cidr" {
+  type = string
+  description = "CIDR block for GWLB subnet 3 located in the 3st Availability Zone"
+  default = "10.0.37.0/24"
+}
+variable "gwlb_gw_subnet_4_cidr" {
+  type = string
+  description = "CIDR block for GWLB subnet 4 located in the 4st Availability Zone"
+  default = "10.0.47.0/24"
+}
