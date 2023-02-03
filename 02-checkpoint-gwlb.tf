@@ -135,3 +135,33 @@ resource "aws_route_table_association" "gwlbe_subnet1_rtb_assoc" {
   subnet_id      = aws_subnet.gwlbe_subnet1.id
   route_table_id = aws_route_table.gwlbe_subnet1_rtb.id
 }
+
+resource "aws_vpc_endpoint_service" "gwlb_endpoint_service" {
+  depends_on = [module.gateway_load_balancer]
+  gateway_load_balancer_arns = module.gateway_load_balancer[*].load_balancer_arn
+  acceptance_required        = var.connection_acceptance_required
+
+  tags = {
+    "Name" = "gwlb-endpoint-service-${var.gateway_load_balancer_name}"
+  }
+}
+
+locals  {
+  gwlb_service_name = "com.amazonaws.vpce.${data.aws_region.current.name}.${aws_vpc_endpoint_service.gwlb_endpoint_service.id}"
+}
+
+resource "aws_vpc_endpoint" "gwlb_endpoint1" {
+  depends_on = [module.gateway_load_balancer, aws_subnet.gwlbe_subnet1]
+  vpc_id = local.vpc_id
+  vpc_endpoint_type = "GatewayLoadBalancer"
+  service_name = local.gwlb_service_name
+  subnet_ids = aws_subnet.gwlbe_subnet1[*].id
+  tags = {
+    "Name" = "gwlb-chkp-endpoint-1"
+  }
+}
+
+resource "aws_ec2_serial_console_access" "example" {
+  enabled = true
+}
+

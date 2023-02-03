@@ -214,3 +214,9 @@ variable "gwlbe_subnet_4_cidr" {
   description = "CIDR block for Gateway Loadbalancer endpoint subnet 4 located in the 4st Availability Zone"
   default = "10.0.44.0/24"
 }
+
+variable "connection_acceptance_required" {
+  type = bool
+  description =  "Indicate whether requests from service consumers to create an endpoint to your service must be accepted. Default is set to false(acceptance not required)."
+  default = false
+}
