@@ -1,5 +1,6 @@
 // --- VPC ---
 resource "aws_vpc" "vpc" {
+  enable_dns_hostnames = true // for SSM
   cidr_block = var.vpc_cidr
   tags = {
     Name = "vpc-gwlb-security"

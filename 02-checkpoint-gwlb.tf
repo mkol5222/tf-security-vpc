@@ -58,8 +58,9 @@ module "autoscale_gwlb" {
 
 data "aws_region" "current"{}
 
-output "management_bootstrap_script" {
-  value = "echo -e '\nStarting Bootstrap script\n'; echo 'Setting up bootstrap parameters'; cv_path='/etc/cloud-version'\n if test -f \"$cv_path\"; then sed -i '/template_name/c\\template_name: autoscale_gwlb' /etc/cloud-version; fi; cv_json_path='/etc/cloud-version.json'\n cv_json_path_tmp='/etc/cloud-version-tmp.json'\n if test -f \"$cv_json_path\"; then cat \"$cv_json_path\" | jq '.template_name = \"'\"management_gwlb\"'\"' > \"$cv_json_path_tmp\"; mv \"$cv_json_path_tmp\" \"$cv_json_path\"; fi; autoprov_cfg -f init AWS -mn ${var.management_server} -tn ${var.configuration_template} -cn gwlb-controller -po ${var.gateways_policy} -otp ${var.gateway_SICKey} -r ${data.aws_region.current.name} -ver ${split("-", var.gateway_version)[0]} -iam; echo -e '\nFinished Bootstrap script\n'"
+output "mancmd" {
+  sensitive = true
+  value = "autoprov_cfg -f init AWS -ak ${aws_iam_access_key.cme-user-key.id} -sk ${aws_iam_access_key.cme-user-key.secret} -mn ${var.management_server} -tn ${var.configuration_template} -cn gwlb-controller -po ${var.gateways_policy} -otp ${var.gateway_SICKey} -r ${data.aws_region.current.name} -ver ${split("-", var.gateway_version)[0]}"
 }
 
 locals {
