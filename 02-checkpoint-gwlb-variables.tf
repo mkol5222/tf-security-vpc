@@ -174,3 +174,43 @@ variable "gateways_policy" {
   description = "The name of the Security Policy package to be installed on the gateways in the Security Gateways Auto Scaling group"
   default = "Standard"
 }
+
+// --- IAM Permissions (ignored when the installation is not Primary Management Server) ---
+variable "iam_permissions" {
+  type = string
+  description = "IAM role to attach to the instance profile"
+  default = "Create with read permissions"
+}
+variable "predefined_role" {
+  type = string
+  description = "(Optional) A predefined IAM role to attach to the instance profile. Ignored if var.iam_permissions is not set to 'Use existing'"
+  default = ""
+}
+variable "sts_roles" {
+  type = list(string)
+  description = "(Optional) The IAM role will be able to assume these STS Roles (list of ARNs). Ignored if var.iam_permissions is set to 'None' or 'Use existing'"
+  default = []
+}
+
+
+// GWLBe
+variable "gwlbe_subnet_1_cidr" {
+  type = string
+  description = "CIDR block for Gateway Loadbalancer endpoint subnet 1 located in the 1st Availability Zone"
+  default = "10.0.14.0/24"
+}
+variable "gwlbe_subnet_2_cidr" {
+  type = string
+  description = "CIDR block for Gateway Loadbalancer endpoint subnet 2 located in the 2st Availability Zone"
+  default = "10.0.24.0/24"
+}
+variable "gwlbe_subnet_3_cidr" {
+  type = string
+  description = "CIDR block for Gateway Loadbalancer endpoint subnet 3 located in the 3st Availability Zone"
+  default = "10.0.34.0/24"
+}
+variable "gwlbe_subnet_4_cidr" {
+  type = string
+  description = "CIDR block for Gateway Loadbalancer endpoint subnet 4 located in the 4st Availability Zone"
+  default = "10.0.44.0/24"
+}

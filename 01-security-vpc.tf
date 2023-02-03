@@ -278,6 +278,24 @@ resource "aws_subnet" "chkp_gw_subnet4" {
   }
 }
 
+resource "aws_route_table" "gw_subnet_rtb" {
+  vpc_id = module.launch_vpc.vpc_id
+  tags = {
+    Name = "rt-net-chkp-gw"
+  }
+}
+resource "aws_route" "vpc_internet_access" {
+  route_table_id = aws_route_table.gw_subnet_rtb.id
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id = module.launch_vpc.aws_igw
+}
+
+resource "aws_route_table_association" "public_rtb_to_gw_subnets" {
+  for_each = { for i, gw_subnet_id in local.chkp_gw_subnet_ids : i => gw_subnet_id }
+  route_table_id = aws_route_table.gw_subnet_rtb.id
+  subnet_id = each.value
+}
+
 output "chkp_gw_subnet_ids" {
   value = [aws_subnet.chkp_gw_subnet1.id, aws_subnet.chkp_gw_subnet2.id, aws_subnet.chkp_gw_subnet3[0].id]
 }
