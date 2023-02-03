@@ -161,7 +161,7 @@ resource "aws_vpc_endpoint" "gwlb_endpoint1" {
   }
 }
 
-resource "aws_ec2_serial_console_access" "example" {
+/* resource "aws_ec2_serial_console_access" "example" {
   enabled = true
-}
+} */
 
