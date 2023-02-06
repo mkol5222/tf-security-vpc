@@ -1,0 +1,40 @@
+vpc_id = "vpc-0ead77bec10248fd5"
+region = "eu-central-1"
+
+chkp_gw_subnet_ids = [
+   "subnet-042ac69488d7d646f",
+  "subnet-0cd55a54e0c67294d",
+  "subnet-09850dec7ca6b94e8",   
+]
+
+chkp_gwlbe_subnets_ids = [
+  "subnet-0201097ff6f1278c2",
+  "subnet-05da8c2df4c99dcf7",
+  "subnet-091391a19b1bf5331",
+]
+
+// GWLB
+gateway_load_balancer_name = "chkp-gwlb"
+enable_cross_zone_load_balancing = true
+// GWLBe
+connection_acceptance_required = false
+
+// CME
+cme_management_server = "chkp-mgmt"
+cme_configuration_template = "chkp-gwlb-template"
+gateways_policy = "Standard"
+allocate_public_IP = true
+gateways_provision_address_type = "public"
+
+// gateways
+gateway_name = "gwlb-chkp-gw"
+gateway_instance_type = "c5.large" // "c5.xlarge"
+key_name = "mko-t14" // SSH key pair name
+admin_shell = "/bin/bash"
+
+gateway_SICKey = "Vpn123546Vpn"
+gateway_password_hash = "9eFRyaV07lHXc"
+gateway_version = "R80.40-BYOL"
+minimum_group_size = 3
+maximum_group_size = 6
+enable_instance_connect = true

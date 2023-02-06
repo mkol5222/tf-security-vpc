@@ -1,0 +1,9 @@
+
+vpc_id = "vpc-0af61f92b5a678ad8"
+region = "eu-central-1"
+
+subnets_ids_list = [
+  "subnet-085321884d8907f83",
+  "subnet-09ce638d6ef355acb",
+  "subnet-0df961ee7633a0fc9",
+]
