@@ -158,3 +158,9 @@ variable "disable_instance_termination" {
   description = "Prevents an instance from accidental termination"
   default = false
 }
+
+variable "gateways_policy" {
+  type = string
+  description = "The name of the Security Policy package to be installed on the gateways in the Security Gateways Auto Scaling group"
+  default = "Standard"
+}
