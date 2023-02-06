@@ -128,3 +128,42 @@ resource "aws_route_table_association" "public_rtb_to_gw_subnets" {
   route_table_id = aws_route_table.gw_subnet_rtb.id
   subnet_id = each.value
 }
+
+
+// GWLBe subnets
+
+// GWLBe
+resource "aws_subnet" "gwlbe_subnet" {
+  for_each = var.gwlbe_subnets_map
+
+  vpc_id =  module.launch_vpc.vpc_id
+  availability_zone = each.key
+  cidr_block = cidrsubnet(data.aws_vpc.selected.cidr_block, var.subnets_bit_length, each.value)
+  tags = {
+    Name = "net-chkp-gwlbe-${each.value}"
+    Network = "Private"
+  }
+}
+resource "aws_route_table" "gwlbe_subnet_rtb" {
+  for_each = var.gwlbe_subnets_map
+  vpc_id =  module.launch_vpc.vpc_id
+
+  tags = {
+    Name = "rt-net-chkp-gwlbe-${each.value}"
+    Network = "Private"
+  }
+}
+
+
+resource "aws_route" "gwlbe_subnet_rtb_default" {
+  for_each = { for i, az in keys(var.gwlbe_subnets_map) : i => az }
+  route_table_id            = aws_route_table.gwlbe_subnet_rtb[each.value].id
+  destination_cidr_block    = "0.0.0.0/0"
+  nat_gateway_id            =  aws_nat_gateway.nat_gateway[each.key].id
+} 
+
+resource "aws_route_table_association" "gwlbe_subnet_rtb_assoc" {
+  for_each = { for i, az in keys(var.gwlbe_subnets_map) : i => az }
+  subnet_id      = aws_subnet.gwlbe_subnet[each.value].id
+  route_table_id = aws_route_table.gwlbe_subnet_rtb[each.value].id
+} 

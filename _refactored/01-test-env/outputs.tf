@@ -11,6 +11,10 @@ output "chkp_gw_subnets_ids_list" {
   value = [for gw_subnet in aws_subnet.chkp_gw_subnet : gw_subnet.id]
 }
 
+output "chkp_gwlbe_subnets_ids_list" {
+  value = [for gwlbe_subnet in aws_subnet.gwlbe_subnet : gwlbe_subnet.id]
+}
+
 output "vpc_id" {
   value = module.launch_vpc.vpc_id
 }
