@@ -18,3 +18,4 @@ module "gateway_load_balancer" {
   listener_port = 6081
   cross_zone_load_balancing = var.enable_cross_zone_load_balancing
 }
+
