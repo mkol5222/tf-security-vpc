@@ -91,3 +91,40 @@ resource "aws_route_table_association" "tgw_subnet_rtb_assoc" {
   route_table_id = aws_route_table.rt-net-chkp-tgw[each.key].id
 }
 
+
+// CHKP GW subnets
+
+data "aws_vpc" "selected" {
+  id = module.launch_vpc.vpc_id
+}
+
+resource "aws_subnet" "chkp_gw_subnet" {
+  for_each = var.gw_subnets_map
+
+  vpc_id = module.launch_vpc.vpc_id
+  availability_zone = each.key
+  cidr_block = cidrsubnet(data.aws_vpc.selected.cidr_block, var.subnets_bit_length, each.value)
+  map_public_ip_on_launch = true
+  tags = {
+    Name = format("net-chkp-gw-%s", each.value)
+    Network = "Public"
+  }
+}
+
+resource "aws_route_table" "gw_subnet_rtb" {
+  vpc_id = module.launch_vpc.vpc_id
+  tags = {
+    Name = "rt-net-chkp-gw"
+  }
+}
+resource "aws_route" "vpc_internet_access" {
+  route_table_id = aws_route_table.gw_subnet_rtb.id
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id = module.launch_vpc.aws_igw
+}
+
+resource "aws_route_table_association" "public_rtb_to_gw_subnets" {
+  for_each = { for i, gw_subnet in aws_subnet.chkp_gw_subnet : i => gw_subnet.id }
+  route_table_id = aws_route_table.gw_subnet_rtb.id
+  subnet_id = each.value
+}
