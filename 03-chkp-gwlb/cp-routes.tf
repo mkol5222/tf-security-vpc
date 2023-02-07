@@ -88,7 +88,7 @@ data "aws_vpc_endpoint" "gwlbe" {
   vpc_id       = var.vpc_id
  
   filter {
-    name   = "tag:Name"
+    name   = "tag:subnet_id"
     values = [each.value]
   }
 }
