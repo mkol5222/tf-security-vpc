@@ -147,7 +147,7 @@ resource "aws_route_table" "with_cp_fw_nat_gw_subnet_rtb" {
   }
  route{
     cidr_block = "10.0.0.0/8"
-    vpc_endpoint_id = data.aws_vpc_endpoint.gwlbe[each.value]
+    vpc_endpoint_id = data.aws_vpc_endpoint.gwlbe[each.value].id
   }
   /*
   route{
