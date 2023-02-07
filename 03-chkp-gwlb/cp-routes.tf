@@ -139,16 +139,17 @@ output "gwlbes" {
 }
 
 resource "aws_route_table" "with_cp_fw_nat_gw_subnet_rtb" {
-  for_each = { for i, s in module.launch_vpc.private_subnets_ids_list : i => s }
-  vpc_id = module.launch_vpc.vpc_id
+  for_each = local.nets_gwlbe
+  vpc_id = var.vpc_id
   route{
     cidr_block = "0.0.0.0/0"
-    gateway_id = module.launch_vpc.aws_igw
+    gateway_id = data.aws_internet_gateway.default
   }
-/*   route{
+ route{
     cidr_block = "10.0.0.0/8"
-    vpc_endpoint_id = aws_vpc_endpoint.gwlb_endpoint1.id
+    vpc_endpoint_id = data.aws_vpc_endpoint.gwlbe[each.value]
   }
+  /*
   route{
     cidr_block = "172.16.0.0/12"
     vpc_endpoint_id = aws_vpc_endpoint.gwlb_endpoint1.id
@@ -159,13 +160,13 @@ resource "aws_route_table" "with_cp_fw_nat_gw_subnet_rtb" {
   } */
 
   tags = {
-    Name = "with-cp-fw-rt-net-chkp-nat-${each.key+1}"
+    Name = "with-cp-fw-rt-net-chkp-nat-${each.value}"
     Network = "Public"
   }
 }
 
-resource "aws_route_table_association" "nat_gw_subnet_rtb_assoc" {
+/* resource "aws_route_table_association" "nat_gw_subnet_rtb_assoc" {
   for_each = { for i, s in module.launch_vpc.private_subnets_ids_list : i => s }
   subnet_id      = each.value
   route_table_id = aws_route_table.nat_gw_subnet_rtb[each.key].id
-}
+} */
