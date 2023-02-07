@@ -146,9 +146,19 @@ resource "aws_route_table" "with_cp_fw_nat_gw_subnet_rtb" {
     gateway_id = data.aws_internet_gateway.default.id
   }
  route{
-    cidr_block = "10.250.0.0/16"
+    cidr_block = "10.250.5.0/24"
     vpc_endpoint_id = data.aws_vpc_endpoint.gwlbe[each.value].id
   }
+   route{
+    cidr_block = "10.250.6.0/24"
+    vpc_endpoint_id = data.aws_vpc_endpoint.gwlbe[each.value].id
+  }
+   route{
+    cidr_block = "10.250.7.0/24"
+    vpc_endpoint_id = data.aws_vpc_endpoint.gwlbe[each.value].id
+  }
+
+
   /*
   route{
     cidr_block = "172.16.0.0/12"
