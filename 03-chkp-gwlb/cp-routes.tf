@@ -42,6 +42,12 @@ output "tgw_subnet_azs" {
     value = [for s in data.aws_subnet.tgw_subnets :  s.availability_zone]
 }
 
+output "nat_subnet_id_az" {
+    value = {for s in data.aws_subnet.tgw_subnets :  s.id => s.availability_zone}
+}
+output "nat_az_subnet_id" {
+    value = {for s in data.aws_subnet.tgw_subnets :  s.availability_zone => s.id  }
+}
 
 data "aws_subnet_ids" "nat_subnet_ids" {
   vpc_id = var.vpc_id
