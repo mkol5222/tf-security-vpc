@@ -31,5 +31,5 @@ output "tgw_subnet_ids" {
   value = [for s in data.aws_subnet.tgw_subnets :  s.id]
 }
 output "tgw_subnet_names" {
-  value = [for s in data.aws_subnet.tgw_subnets :  s.Name]
+  value = [for s in data.aws_subnet.tgw_subnets :  s.name]
 }
