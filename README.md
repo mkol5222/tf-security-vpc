@@ -25,10 +25,59 @@ cd ~/tf-security-vpc
 ```
 
 ### 4. Build test environment VPC
+
+Review inputs
 ```
 cd ~/tf-security-vpc/01-test-env/
 cp terraform.tfvars.sample terraform.tfvars
 vi terraform.tfvars
+```
+
+Deploy
+```
+terraform init
+terraform apply
+```
+
+### 5. Place instances to TGW attachment subnets
+Collect inputs
+```
+(cd ~/tf-security-vpc/01-test-env/; terraform output)
+```
+
+Set inputs
+* *vpc_id* and *region*
+* *subnets_ids_list*
+```
+cd ~/tf-security-vpc/02-instances
+cp terraform.tfvars.sample terraform.tfvars
+vi terraform.tfvars
+```
+
+Deploy
+```
+terraform init
+terraform apply
+```
+
+### 6. Deploy GWLB and Check Point Security Gateways in ASG
+Collect inputs
+```
+(cd ~/tf-security-vpc/01-test-env/; terraform output)
+```
+
+Set inputs
+* *vpc_id* and *region*
+* *chkp_gw_subnet_ids*
+* *chkp_gwlbe_subnets_ids*
+```
+cd ~/tf-security-vpc/03-chkp-gwlb
+cp terraform.tfvars.sample terraform.tfvars
+vi terraform.tfvars
+```
+
+Deploy
+```
 terraform init
 terraform apply
 ```
