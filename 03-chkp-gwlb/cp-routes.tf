@@ -1,4 +1,6 @@
 
+
+
 data "aws_subnet_ids" "tgw_subnet_ids" {
   vpc_id = var.vpc_id
 
@@ -62,6 +64,14 @@ data "aws_subnet_ids" "nat_subnet_ids" {
   }
 }
 
+data "aws_subnet" "nat_subnets" {
+  for_each = data.aws_subnet_ids.nat_subnet_ids.ids
+  id       = each.value
+} 
+
+locals {
+    nat_az_subnet_id = {for s in data.aws_subnet.nat_subnets :  s.availability_zone => s.id  }
+}
 data "aws_nat_gateway" "default" {
   for_each = data.aws_subnet_ids.nat_subnet_ids.ids
   subnet_id = each.value
@@ -180,3 +190,18 @@ resource "aws_route_table" "with_cp_fw_nat_gw_subnet_rtb" {
   subnet_id      = each.value
   route_table_id = aws_route_table.nat_gw_subnet_rtb[each.key].id
 } */
+
+resource "aws_route_table" "with_cp_fw_rt-net-chkp-tgw" {
+    for_each = {for s in data.aws_subnet.gwlbe_subnets :  s.availability_zone => s.id  }
+    vpc_id = var.vpc_id
+    
+    route {
+        cidr_block = "0.0.0.0/0"
+        vpc_endpoint_id = data.aws_vpc_endpoint.gwlbe[each.value].id
+        // nat_gateway_id = aws_nat_gateway.nat_gateway[local.nat_az_subnet_id[each.key]].id 
+    }
+    
+    tags = {
+         Name = "rt-nat-with-fw-${each.key}"
+    }
+} 
