@@ -2,6 +2,10 @@
 
 ## Goals
 
+### Architecture
+
+
+
 ## Steps
 
 ### 1. AWS Cloud Shell
@@ -111,3 +115,8 @@ In [route tables for NAT Gateways](https://eu-central-1.console.aws.amazon.com/v
 ### 10. Test traffic from instances in TGW attachment subnet
 
 Connect to instances using Session Manager and initiate traffic to Internet (*curl*, *ping*, etc.). Monitor Check Point logs.
+
+Keep connecting and report egress IP. Run on instance in TGW attachment subnet.
+```
+while true; do I=$(curl -s ip.iol.cz/ip/); echo $I; done
+```
