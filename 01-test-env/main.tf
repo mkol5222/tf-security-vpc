@@ -1,7 +1,7 @@
 
 // VPC
 module "launch_vpc" {
-  source = "../../modules/vpc"
+  source = "../modules/vpc"
 
   vpc_cidr            = var.vpc_cidr
   public_subnets_map  = var.public_subnets_map

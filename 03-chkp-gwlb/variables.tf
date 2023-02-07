@@ -81,7 +81,7 @@ variable "gateway_version" {
   default = "R80.40-BYOL"
 }
 module "validate_gateway_version" {
-  source = "../../modules/common/version_license"
+  source = "../modules/common/version_license"
 
   chkp_type = "gwlb_gw"
   version_license = var.gateway_version

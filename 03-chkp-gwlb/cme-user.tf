@@ -1,5 +1,5 @@
 module "cme_iam_role" {
-  source = "../../modules/cme-iam-role"
+  source = "../modules/cme-iam-role"
 /*   providers = {
     aws = aws
   } */

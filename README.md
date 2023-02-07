@@ -23,3 +23,12 @@ git clone https://mkol5222:github_pat_11AABYCWY0hgjtjrzGZC0S_Yh8RKd7DeJ555A53c6N
 
 cd ~/tf-security-vpc
 ```
+
+### 4. Build test environment VPC
+```
+cd ~/tf-security-vpc/01-test-env/
+cp terraform.tfvars.sample terraform.tfvars
+vi terraform.tfvars
+terraform init
+terraform apply
+```

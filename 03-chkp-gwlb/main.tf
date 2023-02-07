@@ -1,6 +1,6 @@
 
 module "gateway_load_balancer" {
-  source = "../../modules/common/load_balancer"
+  source = "../modules/common/load_balancer"
 
   load_balancers_type = "gateway"
   instances_subnets = var.chkp_gw_subnet_ids
@@ -44,7 +44,7 @@ resource "aws_vpc_endpoint" "gwlb_endpoint" {
 }
 
 module "autoscale_gwlb" {
-  source = "../../modules/autoscale-gwlb"
+  source = "../modules/autoscale-gwlb"
   providers = {
     aws = aws
   }
