@@ -11,7 +11,7 @@ data "aws_availability_zones" "available" {
   state = "available"
 }
 
-output "tgw_subnet_ids" {
+output "tgw_subnet_ids0" {
     value = data.aws_subnet_ids.tgw_subnet_ids.ids
 }
 
@@ -25,5 +25,11 @@ data "aws_subnet" "tgw_subnets" {
 } 
 
 output "tgw_subnet_cidr_blocks" {
-  value = {for s in data.aws_subnet.tgw_subnets : s.availability_zone => s.cidr_block}
+  value = [for s in data.aws_subnet.tgw_subnets :  s.cidr_block]
+}
+output "tgw_subnet_ids" {
+  value = [for s in data.aws_subnet.tgw_subnets :  s.id]
+}
+output "tgw_subnet_names" {
+  value = [for s in data.aws_subnet.tgw_subnets :  s.Name]
 }
