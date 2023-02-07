@@ -81,3 +81,30 @@ Deploy
 terraform init
 terraform apply
 ```
+
+### 7. Check Point Management side
+Learn CME provisioning command
+```
+(cd ~/tf-security-vpc/03-chkp-gwlb/; terraform output -json | jq -r '."cme-command".value')
+```
+
+Make sure CME is installed and login to CHKP Management server to run this command. Command looks like:
+```
+autoprov_cfg -f init AWS -ak AKIAZTAmodified -sk /MNFoeHQdbTBVnammodified -mn chkp-mgmt -tn chkp-gwlb-template -cn gwlb-controller -po Standard -otp Vpn12modified -r eu-central-1 -ver R80.40
+```
+
+### 8. Monitor CME provisioning on Management Server
+
+Open SmartConsole and monitor Gateways section for ASG instances to appear and to be provisioned with policy.
+
+Monitor CME progress in CME log on CHKP Management:
+```
+ tail -f /var/log/CPcme/cme.log
+```
+
+### 9. Route traffic through GWLBe
+
+
+### 10. Test traffic from instances in TGW attachment subnet
+
+Connect to instances using Session Manager and initiate traffic to Internet (*curl*, *ping*, etc.). Monitor Check Point logs.
