@@ -19,6 +19,11 @@ output "azs" {
     value = data.aws_availability_zones.available.names
 }
 
+data "aws_subnet" "tgw_net_by_az" {
+  for_each = data.aws_subnet_ids.tgw_subnet_ids.ids
+  id       = each.value
+} 
+
 data "aws_subnet" "tgw_subnets" {
   for_each = data.aws_subnet_ids.tgw_subnet_ids.ids
   id       = each.value
@@ -32,4 +37,7 @@ output "tgw_subnet_ids" {
 }
 output "tgw_subnet_names" {
   value = [for s in data.aws_subnet.tgw_subnets :  lookup(s.tags, "Name", "n/a")]
+}
+output "tgw_subnet_azs" {
+    value = [for s in data.aws_subnet.tgw_subnets :  s.availability_zone]
 }
