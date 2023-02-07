@@ -7,6 +7,14 @@ data "aws_subnet_ids" "tgw_subnet_ids" {
   }
 }
 
+data "aws_availability_zones" "available" {
+  state = "available"
+}
+
 output "tgw_subnet_ids" {
     value = data.aws_subnet_ids.tgw_subnet_ids.ids
+}
+
+output "azs" {
+    value = data.aws_availability_zones.available
 }
