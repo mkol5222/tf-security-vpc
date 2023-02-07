@@ -40,6 +40,7 @@ resource "aws_vpc_endpoint" "gwlb_endpoint" {
   subnet_ids = [each.value]
   tags = {
     "Name" = "gwlb-chkp-endpoint-${each.key}"
+    "subnet_id" = each.value
   }
 }
 
