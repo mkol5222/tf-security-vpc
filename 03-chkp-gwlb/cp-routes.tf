@@ -180,17 +180,17 @@ resource "aws_route_table" "with_cp_fw_nat_gw_subnet_rtb" {
   } */
 
   tags = {
-    Name = "with-cp-fw-rt-net-chkp-nat-${each.value}-${each.key}"
+    Name = "with-cp-fw-rt-net-chkp-nat-${each.key}"
     Network = "Public"
   }
 }
 
-resource "aws_route_table_association" "nat_subnet_rtb_assoc" {
+/* resource "aws_route_table_association" "nat_subnet_rtb_assoc" {
   for_each = {for s in data.aws_subnet.gwlbe_subnets : s.availability_zone => s.id }
   subnet_id      = each.value
   route_table_id = aws_route_table.with_cp_fw_nat_gw_subnet_rtb[each.key].id
 } 
-
+ */
 resource "aws_route_table" "with_cp_fw_rt-net-chkp-tgw" {
     for_each = {for s in data.aws_subnet.gwlbe_subnets :  s.availability_zone => s.id  }
     vpc_id = var.vpc_id
@@ -206,8 +206,8 @@ resource "aws_route_table" "with_cp_fw_rt-net-chkp-tgw" {
     }
 } 
 
-resource "aws_route_table_association" "tgw_subnet_rtb_assoc" {
+/* resource "aws_route_table_association" "tgw_subnet_rtb_assoc" {
   for_each = {for s in data.aws_subnet.tgw_subnets : s.availability_zone => s.id }
   subnet_id      = each.value
   route_table_id = aws_route_table.with_cp_fw_rt-net-chkp-tgw[each.key].id
-} 
+}  */
