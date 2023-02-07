@@ -79,7 +79,7 @@ data "aws_subnet_ids" "gwlbe_subnet_ids" {
   }
 }
 
-data "aws_vpc_endpoint" "gwble" {
+data "aws_vpc_endpoint" "gwlbe" {
   for_each = data.aws_subnet_ids.gwlbe_subnet_ids.ids
   vpc_id       = var.vpc_id
  
