@@ -160,7 +160,7 @@ resource "aws_route_table" "with_cp_fw_nat_gw_subnet_rtb" {
   } */
 
   tags = {
-    Name = "with-cp-fw-rt-net-chkp-nat-${each.value}"
+    Name = "with-cp-fw-rt-net-chkp-nat-${each.value}-${each.key}"
     Network = "Public"
   }
 }
