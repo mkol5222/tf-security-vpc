@@ -52,7 +52,7 @@ data "aws_subnet_ids" "nat_subnet_ids" {
 }
 
 data "aws_nat_gateway" "default" {
-  for_each = data.aws_subnet_ids.nat_subnet_ids
+  for_each = data.aws_subnet_ids.nat_subnet_ids.ids
   subnet_id = each.value
 }
 
