@@ -146,7 +146,7 @@ resource "aws_route_table" "with_cp_fw_nat_gw_subnet_rtb" {
     gateway_id = data.aws_internet_gateway.default.id
   }
  route{
-    cidr_block = "10.0.0.0/8"
+    cidr_block = "10.250.0.0/16"
     vpc_endpoint_id = data.aws_vpc_endpoint.gwlbe[each.value].id
   }
   /*
