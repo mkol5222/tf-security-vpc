@@ -52,7 +52,7 @@ output "nat_az_subnet_id" {
 }
 
 locals {
-    nat_az_subnet_id = {for s in data.aws_subnet.tgw_subnets :  s.availability_zone => s.id  }
+    // nat_az_subnet_id = {for s in data.aws_subnet.tgw_subnets :  s.availability_zone => s.id  }
     nat_subnet_id_az =  {for s in data.aws_subnet.tgw_subnets :  s.id => s.availability_zone}
 }
 
