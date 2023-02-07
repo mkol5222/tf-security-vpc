@@ -139,7 +139,7 @@ output "gwlbes" {
 }
 
 resource "aws_route_table" "with_cp_fw_nat_gw_subnet_rtb" {
-  for_each = local.nets_gwlbe
+  for_each = {for s in data.aws_subnet.gwlbe_subnets :  s.availability_zone => s.id  }
   vpc_id = var.vpc_id
   route{
     cidr_block = "0.0.0.0/0"
