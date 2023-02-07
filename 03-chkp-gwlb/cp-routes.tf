@@ -41,3 +41,21 @@ output "tgw_subnet_names" {
 output "tgw_subnet_azs" {
     value = [for s in data.aws_subnet.tgw_subnets :  s.availability_zone]
 }
+
+
+data "aws_subnet_ids" "nat_subnet_ids" {
+  vpc_id = var.vpc_id
+
+  tags = {
+    Name = "net-chkp-nat-*"
+  }
+}
+
+data "aws_nat_gateway" "default" {
+  for_each = data.aws_subnet_ids.nat_subnet_ids
+  subnet_id = each.value
+}
+
+output "nat_gateways" {
+    value = data.aws_nat_gateway.default
+}
