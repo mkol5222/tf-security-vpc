@@ -70,3 +70,25 @@ data "aws_internet_gateway" "default" {
 output "igw" {
     value = data.aws_internet_gateway.default
 }
+
+data "aws_subnet_ids" "gwlbe_subnet_ids" {
+  vpc_id = var.vpc_id
+
+  tags = {
+    Name = "net-chkp-gwlbe-*"
+  }
+}
+
+data "aws_vpc_endpoint" "gwble" {
+  for_each = data.aws_subnet_ids.nat_subnet_ids.ids
+  vpc_id       = var.vpc_id
+  service_name = "com.amazonaws.us-west-2.s3"
+    filter {
+    name   = "subnet_ids"
+    values = [each.value]
+  }
+}
+
+output "gwlbes" {
+    value = data.aws_vpc_endpoint.gwlbe
+}
