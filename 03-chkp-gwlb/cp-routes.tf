@@ -134,7 +134,7 @@ output "nets_tgw" {
     value = local.nets_tgw
 }
 
-data "aws_vpc_endpoint" "gwlbe" {
+/* data "aws_vpc_endpoint" "gwlbe" {
   for_each = data.aws_subnet_ids.gwlbe_subnet_ids.ids
   vpc_id       = var.vpc_id
  
@@ -146,44 +146,44 @@ data "aws_vpc_endpoint" "gwlbe" {
 
 output "gwlbes" {
     value = data.aws_vpc_endpoint.gwlbe
-}
+} */
 
-resource "aws_route_table" "with_cp_fw_nat_gw_subnet_rtb" {
-  for_each = {for s in data.aws_subnet.gwlbe_subnets :  s.availability_zone => s.id  }
-  vpc_id = var.vpc_id
-  route{
-    cidr_block = "0.0.0.0/0"
-    gateway_id = data.aws_internet_gateway.default.id
-  }
- route{
-    cidr_block = "10.250.5.0/24"
-    vpc_endpoint_id = data.aws_vpc_endpoint.gwlbe[each.value].id
-  }
-   route{
-    cidr_block = "10.250.6.0/24"
-    vpc_endpoint_id = data.aws_vpc_endpoint.gwlbe[each.value].id
-  }
-   route{
-    cidr_block = "10.250.7.0/24"
-    vpc_endpoint_id = data.aws_vpc_endpoint.gwlbe[each.value].id
-  }
+# resource "aws_route_table" "with_cp_fw_nat_gw_subnet_rtb" {
+#   for_each = {for s in data.aws_subnet.gwlbe_subnets :  s.availability_zone => s.id  }
+#   vpc_id = var.vpc_id
+#   route{
+#     cidr_block = "0.0.0.0/0"
+#     gateway_id = data.aws_internet_gateway.default.id
+#   }
+#  route{
+#     cidr_block = "10.250.5.0/24"
+#     vpc_endpoint_id = data.aws_vpc_endpoint.gwlbe[each.value].id
+#   }
+#    route{
+#     cidr_block = "10.250.6.0/24"
+#     vpc_endpoint_id = data.aws_vpc_endpoint.gwlbe[each.value].id
+#   }
+#    route{
+#     cidr_block = "10.250.7.0/24"
+#     vpc_endpoint_id = data.aws_vpc_endpoint.gwlbe[each.value].id
+#   }
 
 
-  /*
-  route{
-    cidr_block = "172.16.0.0/12"
-    vpc_endpoint_id = aws_vpc_endpoint.gwlb_endpoint1.id
-  }
-  route{
-    cidr_block = "192.168.0.0/16"
-    vpc_endpoint_id = aws_vpc_endpoint.gwlb_endpoint1.id
-  } */
+#   /*
+#   route{
+#     cidr_block = "172.16.0.0/12"
+#     vpc_endpoint_id = aws_vpc_endpoint.gwlb_endpoint1.id
+#   }
+#   route{
+#     cidr_block = "192.168.0.0/16"
+#     vpc_endpoint_id = aws_vpc_endpoint.gwlb_endpoint1.id
+#   } */
 
-  tags = {
-    Name = "with-cp-fw-rt-net-chkp-nat-${each.key}"
-    Network = "Public"
-  }
-}
+#   tags = {
+#     Name = "with-cp-fw-rt-net-chkp-nat-${each.key}"
+#     Network = "Public"
+#   }
+# }
 
 /* resource "aws_route_table_association" "nat_subnet_rtb_assoc" {
   for_each = {for s in data.aws_subnet.gwlbe_subnets : s.availability_zone => s.id }
@@ -191,7 +191,7 @@ resource "aws_route_table" "with_cp_fw_nat_gw_subnet_rtb" {
   route_table_id = aws_route_table.with_cp_fw_nat_gw_subnet_rtb[each.key].id
 } 
  */
-resource "aws_route_table" "with_cp_fw_rt-net-chkp-tgw" {
+/* resource "aws_route_table" "with_cp_fw_rt-net-chkp-tgw" {
     for_each = {for s in data.aws_subnet.gwlbe_subnets :  s.availability_zone => s.id  }
     vpc_id = var.vpc_id
     
@@ -204,10 +204,11 @@ resource "aws_route_table" "with_cp_fw_rt-net-chkp-tgw" {
     tags = {
          Name = "with-cp-fw-rt-tgw-${each.key}"
     }
-} 
+}  */
 
 /* resource "aws_route_table_association" "tgw_subnet_rtb_assoc" {
   for_each = {for s in data.aws_subnet.tgw_subnets : s.availability_zone => s.id }
   subnet_id      = each.value
   route_table_id = aws_route_table.with_cp_fw_rt-net-chkp-tgw[each.key].id
 }  */
+
