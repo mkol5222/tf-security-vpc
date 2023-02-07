@@ -8,5 +8,5 @@ data "aws_subnet_ids" "tgw_subnet_ids" {
 }
 
 output "tgw_subnet_ids" {
-    value = data.aws_subnet_ids.tgw_subnet_ids
+    value = data.aws_subnet_ids.tgw_subnet_ids.ids
 }
