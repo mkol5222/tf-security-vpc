@@ -83,6 +83,20 @@ output "gwlbe_subnet_ids" {
     value = data.aws_subnet_ids.gwlbe_subnet_ids.ids
 }
 
+
+data "aws_subnet" "gwlbe_subnets" {
+  for_each = data.aws_subnet_ids.gwlbe_subnet_ids.ids
+  id       = each.value
+} 
+
+
+output "gwlbe_subnet_id_az" {
+    value = {for s in data.aws_subnet.gwlbe_subnets :  s.id => s.availability_zone}
+}
+output "gwlbe_az_subnet_id" {
+    value = {for s in data.aws_subnet.gwlbe_subnets :  s.availability_zone => s.id  }
+}
+
 data "aws_vpc_endpoint" "gwlbe" {
   for_each = data.aws_subnet_ids.gwlbe_subnet_ids.ids
   vpc_id       = var.vpc_id
