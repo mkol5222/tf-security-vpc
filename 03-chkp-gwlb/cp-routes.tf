@@ -59,3 +59,14 @@ data "aws_nat_gateway" "default" {
 output "nat_gateways" {
     value = data.aws_nat_gateway.default
 }
+
+data "aws_internet_gateway" "default" {
+  filter {
+    name   = "attachment.vpc-id"
+    values = [var.vpc_id]
+  }
+}
+
+output "igw" {
+    value = data.aws_internet_gateway.default
+}
