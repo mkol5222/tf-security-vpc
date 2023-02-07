@@ -4,7 +4,8 @@
 
 ### Architecture
 
-
+Ilustration picture:
+![](2023-02-07-08-53-48.png)
 
 ## Steps
 
