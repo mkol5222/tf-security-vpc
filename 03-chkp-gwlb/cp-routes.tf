@@ -80,7 +80,7 @@ data "aws_subnet_ids" "gwlbe_subnet_ids" {
 }
 
 data "aws_vpc_endpoint" "gwble" {
-  for_each = data.aws_subnet_ids.nat_subnet_ids.ids
+  for_each = data.aws_subnet_ids.gwlbe_subnet_ids.ids
   vpc_id       = var.vpc_id
  
     filter {
