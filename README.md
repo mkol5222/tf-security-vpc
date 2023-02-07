@@ -104,6 +104,9 @@ Monitor CME progress in CME log on CHKP Management:
 
 ### 9. Route traffic through GWLBe
 
+In [route tables for TGW attachment subnets](https://eu-central-1.console.aws.amazon.com/vpc/home?region=eu-central-1#RouteTables:search=tgw), route via GWLBe instead of NAT Gateway. Route to GWLBe in same AZ.
+
+In [route tables for NAT Gateways[(https://eu-central-1.console.aws.amazon.com/vpc/home?region=eu-central-1#RouteTables:search=chkp-nat)], route back to TGW attachment subnet in same region via GWLBe in same region.
 
 ### 10. Test traffic from instances in TGW attachment subnet
 
