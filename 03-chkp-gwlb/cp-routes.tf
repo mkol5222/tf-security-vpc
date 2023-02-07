@@ -202,6 +202,6 @@ resource "aws_route_table" "with_cp_fw_rt-net-chkp-tgw" {
     }
     
     tags = {
-         Name = "rt-nat-with-fw-${each.key}"
+         Name = "with-cp-fw-rt-tgw-${each.key}"
     }
 } 
