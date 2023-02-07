@@ -187,8 +187,8 @@ resource "aws_route_table" "with_cp_fw_nat_gw_subnet_rtb" {
 
 resource "aws_route_table_association" "nat_gw_subnet_rtb_assoc" {
   for_each = {for i, s in data.aws_subnet_ids.nat_subnet_ids.ids :  s => i }
-  subnet_id      = each.key
-  route_table_id = aws_route_table.with_cp_fw_nat_gw_subnet_rtb[each.value].id
+  subnet_id      = each.value
+  route_table_id = aws_route_table.with_cp_fw_nat_gw_subnet_rtb[each.key].id
 } 
 
 resource "aws_route_table" "with_cp_fw_rt-net-chkp-tgw" {
