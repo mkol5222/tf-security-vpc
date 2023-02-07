@@ -89,7 +89,7 @@ data "aws_vpc_endpoint" "gwlbe" {
  
     filter {
     name   = "subnet_ids"
-    values = [each.value]
+    values = data.aws_subnet_ids.gwlbe_subnet_ids.ids
   }
 }
 
