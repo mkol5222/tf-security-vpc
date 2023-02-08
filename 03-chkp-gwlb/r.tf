@@ -162,9 +162,9 @@ output "cmd_fw_off" {
 aws ec2 replace-route --route-table-id ${local.tgw_rt_a} --destination-cidr-block 0.0.0.0/0 --nat-gateway-id ${local.natgw_a}
 aws ec2 replace-route --route-table-id ${local.tgw_rt_b} --destination-cidr-block 0.0.0.0/0 --nat-gateway-id ${local.natgw_b}
 aws ec2 replace-route --route-table-id ${local.tgw_rt_c} --destination-cidr-block 0.0.0.0/0 --nat-gateway-id ${local.natgw_c}
-aws ec2 delete-route --route-table-id ${local.nat_rt_a} --destination-cidr-block 10.250.5.0/24 --vpc-endpoint-id ${local.gwlbe_a}
-aws ec2 delete-route --route-table-id ${local.nat_rt_b} --destination-cidr-block 10.250.6.0/24 --vpc-endpoint-id ${local.gwlbe_b}
-aws ec2 delete-route --route-table-id ${local.nat_rt_c} --destination-cidr-block 10.250.7.0/24 --vpc-endpoint-id ${local.gwlbe_c}
+aws ec2 delete-route --route-table-id ${local.nat_rt_a} --destination-cidr-block 10.250.5.0/24 
+aws ec2 delete-route --route-table-id ${local.nat_rt_b} --destination-cidr-block 10.250.6.0/24 
+aws ec2 delete-route --route-table-id ${local.nat_rt_c} --destination-cidr-block 10.250.7.0/24 
 
 BBB
 }
