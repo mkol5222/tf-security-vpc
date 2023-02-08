@@ -3,7 +3,7 @@ module "gateway_load_balancer" {
   source = "../modules/common/load_balancer"
 
   load_balancers_type = "gateway"
-  instances_subnets = var.chkp_gw_subnet_ids
+  instances_subnets = var.chkp_gw_subnets_ids_list
   prefix_name = var.gateway_load_balancer_name
   internal = true
 
@@ -53,7 +53,7 @@ module "autoscale_gwlb" {
 
   target_groups = module.gateway_load_balancer[*].target_group_arn
   vpc_id = var.vpc_id
-  subnet_ids = var.chkp_gw_subnet_ids
+  subnet_ids = var.chkp_gw_subnets_ids_list
   gateway_name = var.gateway_name
   gateway_instance_type = var.gateway_instance_type
   key_name = var.key_name

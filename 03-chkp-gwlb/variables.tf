@@ -8,7 +8,7 @@ variable "region" {
   description = "AWS region"
 }
 
-variable "chkp_gw_subnet_ids" {
+variable "chkp_gw_subnets_ids_list" {
   type = list(string)
   description = "list of subnet ids to deploy GW instances to"
 }
