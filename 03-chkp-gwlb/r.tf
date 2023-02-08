@@ -22,10 +22,20 @@ data "aws_subnet" "tgw_subnet" {
   id       = each.value
 } 
 
+// route tables
+data "aws_route_table" "tgw" {
+  for_each = data.aws_subnet_ids.tgw_subnet_ids.ids
+  subnet_id = each.value
+}
+
 output "tgw-subnet-ids-by-az" {
     value = {for s in data.aws_subnet.tgw_subnet :  s.availability_zone => s.id  }
 }
 
 output "tgw-subnets" {
     value = data.aws_subnet.tgw_subnet
+}
+
+output "tgw-route-tables" {
+    value = data.aws_route_table.tgw
 }
