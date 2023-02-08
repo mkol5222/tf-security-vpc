@@ -24,6 +24,13 @@ variable "tgw_subnet_name_list" {
   default = ["net-chkp-tgw-5", "net-chkp-tgw-6", "net-chkp-tgw-7"]
 }
 
+// route via GWLB
+variable "route_via_gwlb" {
+  type = bool
+  description =  "Select 'true' to place CloudGuard behind GWLB to traffic"
+  default = false
+}
+
 // GWLB config
 variable "gateway_load_balancer_name" {
   type = string
