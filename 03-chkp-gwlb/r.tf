@@ -28,6 +28,29 @@ data "aws_route_table" "tgw" {
   subnet_id = each.value
 }
 
+locals {
+    azs = data.aws_availability_zones.available
+    tgw_subnet_id_by_az = {for s in data.aws_subnet.tgw_subnet :  s.availability_zone => s.id  }
+    tgw_subnet_a = tgw_subnet_id_by_az[azs[0]]
+    tgw_subnet_b = tgw_subnet_id_by_az[azs[1]]
+    tgw_subnet_c = tgw_subnet_id_by_az[azs[2]]
+    tgw_rt_a = data.aws_route_table.tgw[tgw_subnet_a]
+    tgw_rt_b = data.aws_route_table.tgw[tgw_subnet_b]
+    tgw_rt_c = data.aws_route_table.tgw[tgw_subnet_c]
+}
+
+output "tgw_rt_a" {
+    value = local.tgw_rt_a
+}
+output "tgw_rt_b" {
+    value = local.tgw_rt_b
+}
+output "tgw_rt_c" {
+    value = local.tgw_rt_c
+}
+
+
+
 output "tgw-subnet-ids-by-az" {
     value = {for s in data.aws_subnet.tgw_subnet :  s.availability_zone => s.id  }
 }
