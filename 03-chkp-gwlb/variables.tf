@@ -13,7 +13,7 @@ variable "chkp_gw_subnet_ids" {
   description = "list of subnet ids to deploy GW instances to"
 }
 
-variable "chkp_gwlbe_subnets_ids" {
+variable "chkp_gwlbe_subnets_ids_list" {
   type = list(string)
   description = "list of subnet ids to deploy GWLBe instances to"
 }

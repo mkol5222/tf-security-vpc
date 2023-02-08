@@ -1,13 +1,14 @@
 vpc_id = "vpc-0ead77bec10248fd5"
 region = "eu-central-1"
 
+// 
 chkp_gw_subnet_ids = [
    "subnet-042ac69488d7d646f",
   "subnet-0cd55a54e0c67294d",
   "subnet-09850dec7ca6b94e8",   
 ]
 
-chkp_gwlbe_subnets_ids = [
+chkp_gwlbe_subnets_ids_list = [
   "subnet-0201097ff6f1278c2",
   "subnet-05da8c2df4c99dcf7",
   "subnet-091391a19b1bf5331",

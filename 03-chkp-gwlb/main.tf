@@ -31,7 +31,7 @@ resource "aws_vpc_endpoint_service" "gwlb_endpoint_service" {
 }
 
 resource "aws_vpc_endpoint" "gwlb_endpoint" {
-  for_each = { for i, s in var.chkp_gwlbe_subnets_ids : i => s }
+  for_each = { for i, s in var.chkp_gwlbe_subnets_ids_list : i => s }
 
   depends_on = [module.gateway_load_balancer]
   vpc_id = var.vpc_id
