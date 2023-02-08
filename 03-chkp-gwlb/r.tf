@@ -29,7 +29,7 @@ data "aws_route_table" "tgw" {
 }
 
 locals {
-    azs = data.aws_availability_zones.available
+    azs = data.aws_availability_zones.available.names
     tgw_subnet_id_by_az = {for s in data.aws_subnet.tgw_subnet :  s.availability_zone => s.id  }
     tgw_subnet_a = local.tgw_subnet_id_by_az[local.azs[0]]
     tgw_subnet_b = local.tgw_subnet_id_by_az[local.azs[1]]
