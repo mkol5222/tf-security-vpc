@@ -72,8 +72,9 @@ Collect inputs
 ```
 
 Set inputs
-* *vpc_id* and *region*
-* *chkp_gw_subnet_ids*
+* *vpc_id* 
+* *region*
+* *chkp_gw_subnet_ids_list*
 * *chkp_gwlbe_subnets_ids_list*
 ```
 cd ~/tf-security-vpc/03-chkp-gwlb
