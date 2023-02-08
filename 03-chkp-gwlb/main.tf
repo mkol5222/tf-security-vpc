@@ -39,7 +39,7 @@ resource "aws_vpc_endpoint" "gwlb_endpoint" {
   service_name = "com.amazonaws.vpce.${var.region}.${aws_vpc_endpoint_service.gwlb_endpoint_service.id}"
   subnet_ids = [each.value]
   tags = {
-    "Name" = "gwlb-chkp-endpoint-${each.key}"
+    "Name" = "gwlb-chkp-endpoint-${each.key+1}"
     "subnet_id" = each.value
   }
 }
