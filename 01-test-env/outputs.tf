@@ -23,11 +23,11 @@ output "chkp_gwlbe_subnets_ids_list" {
   value = [for gwlbe_subnet in aws_subnet.gwlbe_subnet : gwlbe_subnet.id]
 }
 
-output "aws_route_table_association-tgw" {
+/* output "aws_route_table_association-tgw" {
   value = aws_route_table_association.tgw_subnet_rtb_assoc[*].id
 }
 
 output "aws_route_table_association-nat" {
   value = aws_route_table_association.nat_gw_subnet_rtb_assoc[*].id
-}
+} */
 
