@@ -34,9 +34,9 @@ locals {
     tgw_subnet_a = tgw_subnet_id_by_az[azs[0]]
     tgw_subnet_b = tgw_subnet_id_by_az[azs[1]]
     tgw_subnet_c = tgw_subnet_id_by_az[azs[2]]
-    tgw_rt_a = data.aws_route_table.tgw[tgw_subnet_a]
-    tgw_rt_b = data.aws_route_table.tgw[tgw_subnet_b]
-    tgw_rt_c = data.aws_route_table.tgw[tgw_subnet_c]
+    tgw_rt_a = data.aws_route_table.tgw[tgw_subnet_a].id
+    tgw_rt_b = data.aws_route_table.tgw[tgw_subnet_b].id
+    tgw_rt_c = data.aws_route_table.tgw[tgw_subnet_c].id
 }
 
 output "tgw_rt_a" {
