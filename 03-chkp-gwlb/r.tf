@@ -100,9 +100,10 @@ locals {
     nat_subnet_a = local.nat_subnet_id_by_az[local.azs[0]]
     nat_subnet_b = local.nat_subnet_id_by_az[local.azs[1]]
     nat_subnet_c = local.nat_subnet_id_by_az[local.azs[2]]
-    natgw_a = data.aws_nat_gateway.default[nat_subnet_a].id
-    natgw_b = data.aws_nat_gateway.default[nat_subnet_b].id
-    natgw_c = data.aws_nat_gateway.default[nat_subnet_c].id
+    
+    natgw_a = data.aws_nat_gateway.default[local.nat_subnet_a].id
+    natgw_b = data.aws_nat_gateway.default[local.nat_subnet_b].id
+    natgw_c = data.aws_nat_gateway.default[local.nat_subnet_c].id
 
     nat_rt_a = data.aws_route_table.nat[local.nat_subnet_a].id
     nat_rt_b = data.aws_route_table.nat[local.nat_subnet_b].id
