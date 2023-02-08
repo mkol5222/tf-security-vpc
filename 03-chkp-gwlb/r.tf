@@ -100,7 +100,7 @@ locals {
     nat_subnet_a = local.nat_subnet_id_by_az[local.azs[0]]
     nat_subnet_b = local.nat_subnet_id_by_az[local.azs[1]]
     nat_subnet_c = local.nat_subnet_id_by_az[local.azs[2]]
-    
+
     natgw_a = data.aws_nat_gateway.default[local.nat_subnet_a].id
     natgw_b = data.aws_nat_gateway.default[local.nat_subnet_b].id
     natgw_c = data.aws_nat_gateway.default[local.nat_subnet_c].id
@@ -148,8 +148,16 @@ output "nat_rt_c" {
 
 
 output "cmd_fw_on" {
-    value = "aws ec2 replace-route --route-table-id ${local.tgw_rt_a} --destination-cidr-block 0.0.0.0/0 --vpc-endpoint-id ${local.gwlbe_a}"
+    value = <<AAA
+aws ec2 replace-route --route-table-id ${local.tgw_rt_a} --destination-cidr-block 0.0.0.0/0 --vpc-endpoint-id ${local.gwlbe_a}
+aws ec2 replace-route --route-table-id ${local.tgw_rt_b} --destination-cidr-block 0.0.0.0/0 --vpc-endpoint-id ${local.gwlbe_b}
+aws ec2 replace-route --route-table-id ${local.tgw_rt_c} --destination-cidr-block 0.0.0.0/0 --vpc-endpoint-id ${local.gwlbe_c}
+AAA
 }
 output "cmd_fw_off" {
-    value = "aws ec2 replace-route --route-table-id ${local.tgw_rt_a} --destination-cidr-block 0.0.0.0/0 --nat-gateway-id ${local.natgw_a}"
+    value = <<BBB
+aws ec2 replace-route --route-table-id ${local.tgw_rt_a} --destination-cidr-block 0.0.0.0/0 --nat-gateway-id ${local.natgw_a}"
+aws ec2 replace-route --route-table-id ${local.tgw_rt_b} --destination-cidr-block 0.0.0.0/0 --nat-gateway-id ${local.natgw_b}"
+aws ec2 replace-route --route-table-id ${local.tgw_rt_c} --destination-cidr-block 0.0.0.0/0 --nat-gateway-id ${local.natgw_c}"
+BBB
 }
