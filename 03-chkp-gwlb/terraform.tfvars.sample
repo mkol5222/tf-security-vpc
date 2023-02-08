@@ -14,6 +14,9 @@ chkp_gwlbe_subnets_ids_list = [
   "subnet-091391a19b1bf5331",
 ]
 
+// place into traffic?
+route_via_gwlb = false
+
 // GWLB
 gateway_load_balancer_name = "chkp-gwlb"
 enable_cross_zone_load_balancing = true
