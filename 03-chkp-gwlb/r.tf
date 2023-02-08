@@ -37,6 +37,9 @@ locals {
     tgw_rt_a = data.aws_route_table.tgw[local.tgw_subnet_a].id
     tgw_rt_b = data.aws_route_table.tgw[local.tgw_subnet_b].id
     tgw_rt_c = data.aws_route_table.tgw[local.tgw_subnet_c].id
+    gwlbe_a = aws_vpc_endpoint.gwlb_endpoint["0"].id
+    gwlbe_b = aws_vpc_endpoint.gwlb_endpoint["1"].id
+    gwlbe_c = aws_vpc_endpoint.gwlb_endpoint["2"].id
 }
 
 output "tgw_rt_a" {
@@ -49,6 +52,15 @@ output "tgw_rt_c" {
     value = local.tgw_rt_c
 }
 
+output "gwlbe_a" {
+    value = local.gwlbe_a
+}
+output "gwlbe_b" {
+    value = local.gwlbe_b
+}
+output "gwlbe_c" {
+    value = local.gwlbe_c
+}
 
 
 output "tgw-subnet-ids-by-az" {
