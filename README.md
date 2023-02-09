@@ -24,7 +24,7 @@ terraform -version
 
 ### 3. Clone repo
 ```bash
-git clone https://mkol5222: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@github.com/mkol5222/tf-security-vpc.git ~/tf-security-vpc
+git clone https://github.com/mkol5222/tf-security-vpc.git ~/tf-security-vpc
 
 cd ~/tf-security-vpc
 ```
