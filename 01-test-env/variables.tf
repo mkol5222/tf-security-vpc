@@ -5,6 +5,11 @@ variable "vpc_cidr" {
   default = "10.0.0.0/16"
 }
 
+variable "region" {
+  type = string
+  description = "AWS region"
+}
+
 variable "public_subnets_map" {
   type = map(string)
   description = "A map of pairs {availability-zone = subnet-suffix-number}. Each entry creates a subnet. Minimum 2 pairs.  (e.g. {\"us-east-1a\" = 1} ) "

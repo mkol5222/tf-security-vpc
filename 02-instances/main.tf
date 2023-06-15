@@ -57,7 +57,7 @@ resource "aws_instance" "ssm_host" {
   tags = {
     Name = "ssm-host-${each.key+1}"
   }
-  user_data = file("./install-nginx.sh")
+  user_data = file("${path.module}/install-nginx.sh")
 }
 
 resource "aws_vpc_endpoint" "ssm_endpoint" {

@@ -8,7 +8,7 @@ output "vpc_id" {
 }
 
 output "region" {
- value = "eu-central-1"
+ value =var.region
 }
 
 output "subnets_ids_list" {
