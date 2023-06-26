@@ -1,5 +1,22 @@
 // Module: Check Point CloudGuard Network Gateway Load Balancer into an existing VPC
 
+// --- AWS Provider ---
+variable "region" {
+  type = string
+  description = "AWS region"
+  default = ""
+}
+variable "access_key" {
+  type = string
+  description = "AWS access key"
+  default = ""
+}
+variable "secret_key" {
+  type = string
+  description = "AWS secret key"
+  default = ""
+}
+
 // --- Network Configuration ---
 variable "vpc_id" {
   type = string
@@ -101,7 +118,7 @@ variable "gateway_instance_type" {
   default = "c5.xlarge"
 }
 module "validate_instance_type" {
-  source = "../common/instance_type"
+  source = "../modules/common/instance_type"
 
   chkp_type = "gateway"
   instance_type = var.gateway_instance_type
@@ -173,7 +190,7 @@ variable "management_instance_type" {
   default = "m5.xlarge"
 }
 module "validate_management_instance_type" {
-  source = "../common/instance_type"
+  source = "../modules/common/instance_type"
 
   chkp_type = "management"
   instance_type = var.management_instance_type
@@ -184,7 +201,7 @@ variable "management_version" {
   default = "R81.10-BYOL"
 }
 module "validate_management_version" {
-  source = "../common/version_license"
+  source = "../modules/common/version_license"
 
   chkp_type = "management"
   version_license = var.management_version

@@ -22,23 +22,3 @@ output "controller_name" {
 output "template_name" {
   value = var.configuration_template
 }
-
-output "tgw_subnet1_rtb" {
-  value = aws_route_table.tgw_attachment_subnet1_rtb.id
-}
-output "tgw_subnet2_rtb" {
-  value = aws_route_table.tgw_attachment_subnet2_rtb.id
-}
-output "tgw_subnet3_rtb" {
-  value = aws_route_table.tgw_attachment_subnet3_rtb[0].id
-} 
-
-output "gwlbe_subnet1_rtb" {
-  value = aws_route_table.gwlbe_subnet1_rtb.id
-}
-output "gwlbe_subnet2_rtb" {
-  value = aws_route_table.gwlbe_subnet2_rtb.id
-}
-output "gwlbe_subnet3_rtb" {
-  value = aws_route_table.gwlbe_subnet3_rtb[0].id
-} 

@@ -1,3 +1,8 @@
+# provider "aws" {
+#   region = var.region
+#   access_key = var.access_key
+#   secret_key = var.secret_key
+# }
 
 resource "aws_iam_role" "cme_iam_role" {
   assume_role_policy = data.aws_iam_policy_document.cme_role_assume_policy_document.json
@@ -104,7 +109,8 @@ data "aws_iam_policy_document" "cme_role_write_policy_doc" {
     effect = "Allow"
     actions = [
       "cloudformation:DescribeStacks",
-      "cloudformation:DescribeStackResources"]
+      "cloudformation:DescribeStackResources",
+      "cloudformation:ListStacks"]
     resources = ["*"]
   }
   statement {
@@ -122,5 +128,8 @@ resource "aws_iam_policy" "cme_role_write_policy" {
 resource "aws_iam_role_policy_attachment" "attach_write_policy" {
   count = local.allow_write_permissions
   policy_arn = aws_iam_policy.cme_role_write_policy[0].arn
+  role = aws_iam_role.cme_iam_role.id
+}
+resource "aws_iam_instance_profile" "iam_instance_profile" {
   role = aws_iam_role.cme_iam_role.id
 }

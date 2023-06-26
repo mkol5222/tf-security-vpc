@@ -83,7 +83,7 @@ module "chkp" {
 
   gateway_SICKey          = "Vpn123546Vpn"
   gateway_password_hash   = "$1$J4Z6eE9e$QHd2tsbdJRzgD0Ju.iYdb/" // "9eFRyaV07lHXc"
-  gateway_version         = "R80.40-BYOL"
+  gateway_version         =  "R81.20-BYOL" // "R80.40-BYOL"
   minimum_group_size      = 3
   maximum_group_size      = 6
   enable_instance_connect = true

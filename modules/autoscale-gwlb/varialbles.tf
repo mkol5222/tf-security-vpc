@@ -1,5 +1,22 @@
 // Module: Check Point CloudGuard Network Auto Scaling Group into an existing VPC
 
+// --- AWS Provider ---
+variable "region" {
+  type = string
+  description = "AWS region"
+  default = ""
+}
+variable "access_key" {
+  type = string
+  description = "AWS access key"
+  default = ""
+}
+variable "secret_key" {
+  type = string
+  description = "AWS secret key"
+  default = ""
+}
+
 // --- Environment ---
 variable "prefix" {
   type = string

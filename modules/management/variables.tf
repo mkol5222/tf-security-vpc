@@ -38,7 +38,7 @@ variable "management_instance_type" {
   default = "m5.xlarge"
 }
 module "validate_instance_type" {
-  source = "../common/instance_type"
+  source = "../modules/common/instance_type"
 
   chkp_type = "management"
   instance_type = var.management_instance_type
@@ -103,10 +103,10 @@ variable "sts_roles" {
 variable "management_version" {
   type = string
   description = "Management version and license"
-  default = "R81.10-BYOL"
+  default = "R81-BYOL"
 }
 module "validate_management_version" {
-  source = "../common/version_license"
+  source = "../modules/common/version_license"
 
   chkp_type = "management"
   version_license = var.management_version

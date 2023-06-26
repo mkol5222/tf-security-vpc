@@ -56,6 +56,7 @@ resource "aws_instance" "ssm_host" {
   vpc_security_group_ids = [aws_security_group.ssm_host_sg.id]
   tags = {
     Name = "ssm-host-${each.key+1}"
+    "x-martin-allow-internet-access" = "true"
   }
   user_data = file("${path.module}/install-nginx.sh")
 }
